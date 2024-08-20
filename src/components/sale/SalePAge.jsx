@@ -13,13 +13,13 @@ const SalePage = () => {
   const [error, setError] = useState("");
 
   // Function to filter items based on the search term
-  const filteredItems = items.filter(
-    (item) =>
-      item.code.includes(searchTerm) ||
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.quantity.toString().includes(searchTerm) ||
-      item.salePrice.toString().includes(searchTerm)
-  );
+  // const filteredItems = items.filter(
+  //   (item) =>
+  //     item.code.includes(searchTerm) ||
+  //     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     item.quantity.toString().includes(searchTerm) ||
+  //     item.salePrice.toString().includes(searchTerm)
+  // );
 
   // Update the selected item based on the search term
   useEffect(() => {
