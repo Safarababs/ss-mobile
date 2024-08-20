@@ -1,0 +1,148 @@
+/* General styles */
+.sale-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0056b3; /* Darker blue for a professional look */
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Item details table styles */
+.item-details {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.item-details h2 {
+  margin: 0;
+  color: #0056b3;
+}
+
+.item-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.item-details td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.item-details .item-header {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.item-details input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+.item-details button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.item-details button:hover {
+  background-color: #218838;
+}
+
+/* Sales summary table styles */
+.sales-summary {
+  margin-top: 20px;
+}
+
+.sales-summary h2 {
+  text-align: center;
+  color: #0056b3;
+}
+
+.sales-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.sales-summary th,
+.sales-summary td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.sales-summary th {
+  background-color: #007bff; /* Skyblue color */
+  color: #fff;
+}
+
+.sales-summary tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sales-summary tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 480px) {
+  .search-bar input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .item-details input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .item-details table,
+  .sales-summary table {
+    font-size: 14px;
+    display: block;
+    overflow-x: auto;
+  }
+}

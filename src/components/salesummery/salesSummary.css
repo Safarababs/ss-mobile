@@ -1,0 +1,30 @@
+.sales-summary-page {
+  padding: 20px;
+}
+
+.category-selector {
+  margin-bottom: 20px;
+}
+
+.category-selector label {
+  margin-right: 20px;
+}
+
+.sales-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-summary-table th,
+.sales-summary-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.sales-summary-table th {
+  background-color: #f2f2f2;
+}
+
+.sales-summary-table td {
+  text-align: center;
+}
