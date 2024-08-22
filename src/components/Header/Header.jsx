@@ -30,6 +30,11 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link to="/invoice" onClick={toggleMenu}>
+                Invoice
+              </Link>
+            </li>
+            <li>
               <Link to="/sale" onClick={toggleMenu}>
                 Sale
               </Link>

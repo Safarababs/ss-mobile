@@ -5,6 +5,7 @@ import InventoryPage from "./components/inventry/InventoryPage";
 import SalePage from "./components/sale/SalePAge";
 import SalesSummary from "./components/salesummery/SalesSummary";
 import Header from "./components/Header/Header";
+import InvoicePage from "./components/Invoice/Invoice";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/sale" element={<SalePage />} />
           <Route path="/sales-summary" element={<SalesSummary />} />
+          <Route path="/invoice" element={<InvoicePage />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,414 @@
+/* General Styling */
+.invoice {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #0056b3;
+}
+
+header .tagline {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 5px;
+}
+
+header .customer-info {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header .customer-info input {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 60%; /* Default width for mobile */
+  box-sizing: border-box;
+}
+
+/* Item Selection */
+.item-selection {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+}
+
+.item-selection input,
+.item-selection select {
+  width: 60%; /* Default width for mobile */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.item-selection button {
+  width: 60%; /* Default width for mobile */
+  padding: 10px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.item-selection button:hover {
+  background-color: #003d7a;
+}
+
+/* Invoice Display */
+.invoice-display {
+  margin-bottom: 20px;
+}
+
+.invoice-display table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-display th,
+.invoice-display td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.invoice-display th {
+  background-color: #0056b3;
+  color: #fff;
+}
+/* search list start */
+/* Search Results Container */
+.search-results {
+  position: absolute; /* Position it below the search input */
+  width: calc(100% - 20px); /* Full width minus padding */
+  max-height: 300px; /* Limit height */
+  overflow-y: auto; /* Scroll if necessary */
+  background-color: #fff; /* Background color */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  z-index: 1000; /* Ensure it appears above other content */
+  margin-top: 5px; /* Space between input and results */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+/* Individual Search Result */
+.search-result {
+  padding: 10px; /* Space inside each item */
+  border-bottom: 1px solid #eee; /* Border between items */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-size: 1rem; /* Font size */
+}
+
+/* Remove bottom border for the last item */
+.search-result:last-child {
+  border-bottom: none;
+}
+
+/* Hover effect for search result items */
+.search-result:hover {
+  background-color: #f1f1f1; /* Background color on hover */
+}
+
+/* Optionally, style for selected item */
+.search-result.selected {
+  background-color: #d1e0e0; /* Highlight color for selected item */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-results {
+    width: calc(100% - 10px); /* Adjust width for smaller screens */
+    font-size: 0.9rem; /* Slightly smaller font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-results {
+    width: calc(100% - 5px); /* Further adjust width for very small screens */
+    font-size: 0.8rem; /* Further reduce font size */
+  }
+}
+
+/* search list end */
+
+/* Totals Section Styling */
+.totals {
+  border-top: 2px solid #333;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.subtotal-row,
+.discount-row,
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.subtotal-row:last-child,
+.discount-row:last-child {
+  border-bottom: none;
+}
+
+.subtotal-row p,
+.discount-row p,
+.total-row p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.subtotal-row span,
+.discount-row span,
+.total-row span {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.discount-row span {
+  color: #c62828;
+}
+
+.total-row p {
+  font-size: 1.1rem;
+}
+
+.total-row span {
+  font-size: 1.2rem;
+  color: #1e88e5;
+}
+
+/* Footer Styling */
+.invoice-footer {
+  text-align: center;
+}
+
+.invoice-footer .discount {
+  margin-bottom: 10px;
+}
+
+.invoice-footer .discount label {
+  margin-right: 10px;
+}
+
+.invoice-footer .goodbye-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.invoice-footer button {
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: #fff;
+  width: 30%;
+  margin: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.invoice-footer button:hover {
+  background-color: #003d7a;
+}
+
+.remove-button {
+  padding: 5px 10px;
+  background-color: #c62828;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #a60000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header .tagline {
+    font-size: 0.9rem;
+  }
+
+  .invoice-display th,
+  .invoice-display td {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .totals {
+    padding: 10px;
+  }
+
+  .subtotal-row,
+  .discount-row,
+  .total-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subtotal-row p,
+  .discount-row p,
+  .total-row p {
+    font-size: 0.9rem;
+  }
+
+  .subtotal-row span,
+  .discount-row span,
+  .total-row span {
+    font-size: 1rem;
+  }
+
+  .invoice-footer .goodbye-message {
+    font-size: 0.9rem;
+  }
+
+  .invoice-footer button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .item-selection input,
+  .item-selection select,
+  .item-selection button {
+    width: 75%; /* Tablet width */
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  header .tagline {
+    font-size: 0.8rem;
+  }
+
+  header .customer-info input {
+    font-size: 0.9rem;
+    padding: 8px;
+    width: 95%; /* Full width on mobile */
+    box-sizing: border-box;
+  }
+
+  .item-selection input,
+  .item-selection select,
+  .item-selection button {
+    font-size: 0.9rem;
+    padding: 8px;
+    width: 95%; /* Full width on mobile */
+    box-sizing: border-box;
+  }
+
+  .invoice-display th,
+  .invoice-display td {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .invoice-footer .goodbye-message {
+    font-size: 0.8rem;
+  }
+
+  .invoice-footer button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    width: 90%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    margin: 0;
+    margin-top: 6rem;
+  }
+
+  .invoice {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 10px;
+    box-shadow: none;
+    border: 1px solid #000;
+    page-break-inside: auto;
+  }
+
+  .item-selection {
+    display: none;
+  }
+
+  .discount {
+    display: none;
+  }
+
+  .invoice-footer button {
+    display: none;
+  }
+
+  .invoice-display table {
+    border: 1px solid #000;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .invoice-display th,
+  .invoice-display td {
+    border: 1px solid #000;
+    padding: 8px;
+    color: #000;
+  }
+
+  .invoice-footer .goodbye-message {
+    margin-top: 10px;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .invoice-display th:nth-child(5),
+  .invoice-display td:nth-child(5) {
+    display: none;
+  }
+}
