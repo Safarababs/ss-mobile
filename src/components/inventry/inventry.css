@@ -14,16 +14,16 @@ h1 {
 }
 
 /* Search Bar Styles */
-.search-bar {
+.inventory-page .search-bar {
   margin-bottom: 20px;
   text-align: center;
 }
 
-.search-bar input {
+.inventory-page .search-bar input {
   width: 100%;
-  max-width: 00px;
+  max-width: 600px;
   padding: 12px 20px;
-  border: 1px solid #3e1adf;
+  border: 1px solid #ddd;
   border-radius: 25px;
   font-size: 16px;
   color: #333;
@@ -32,14 +32,14 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.search-bar input:focus {
-  outline: none; /* Remove default focus outline */
-  border-color: #007bff; /* Change border color on focus */
-  background-color: #fff; /* Slightly darker background on focus */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on focus */
+.inventory-page .search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.search-bar input::placeholder {
+.inventory-page .search-bar input::placeholder {
   color: #aaa; /* Placeholder color */
   font-style: italic; /* Italic style for placeholder text */
 }

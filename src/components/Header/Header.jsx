@@ -34,11 +34,7 @@ const Header = () => {
                 Invoice
               </Link>
             </li>
-            <li>
-              <Link to="/sale" onClick={toggleMenu}>
-                Sale
-              </Link>
-            </li>
+
             <li>
               <Link to="/sales-summary" onClick={toggleMenu}>
                 Sales Summary
