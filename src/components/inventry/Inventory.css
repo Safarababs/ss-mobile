@@ -1,0 +1,161 @@
+/* General styles */
+.inventory-page {
+  padding: 10px;
+  margin: 0; /* Remove margins so it stretches fully */
+  width: 100%; /* Make sure it takes up full screen width */
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Ensure body stretches to full width (might be needed if your body or wrapper restricts width) */
+body,
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.inventory-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0056b3;
+}
+
+/* Search Bar Styles */
+.inventory-page .search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inventory-page .search-bar input {
+  width: 100%; /* Make input fill the available space */
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.inventory-page .search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Table styles for larger screens */
+.inventory-table-container {
+  display: block; /* Ensure table is displayed */
+  width: 100%; /* Make sure the container is also full width */
+}
+
+.inventory-table {
+  width: 100%; /* Table takes up full width */
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.inventory-table th,
+.inventory-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.inventory-table th {
+  background-color: #007bff; /* Skyblue color */
+  color: #fff;
+}
+
+.inventory-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.inventory-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.inventory-table td {
+  vertical-align: middle;
+}
+
+/* Responsive styles for tablets and below */
+@media (max-width: 768px) {
+  /* Make the search bar smaller on tablets */
+  .search-bar {
+    width: 90%;
+  }
+
+  .search-bar input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+
+  /* Adjust table font size and padding */
+  .inventory-table {
+    font-size: 14px;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 10px;
+  }
+
+  /* Allow horizontal scrolling for the table on smaller screens */
+  .inventory-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  /* Optional: Make columns more readable on small screens by reducing padding */
+  .inventory-table th,
+  .inventory-table td {
+    padding: 8px;
+  }
+
+  /* Optional: Adjust the layout of the table */
+  .inventory-table th {
+    font-size: 16px; /* Make headings a little bigger */
+  }
+
+  .inventory-table td {
+    font-size: 14px; /* Adjust font size for table data */
+  }
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 480px) {
+  .inventory-table-container {
+    overflow-x: auto; /* Ensure horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  /* Adjust table font size and padding */
+  .inventory-table {
+    font-size: 12px; /* Reduce font size for mobile */
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 8px;
+  }
+
+  .inventory-table th {
+    font-size: 14px; /* Make headings a little bigger */
+  }
+
+  .inventory-table td {
+    font-size: 12px; /* Smaller font size for data */
+  }
+
+  /* Make the search bar even smaller on mobile */
+  .search-bar input {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

@@ -1,24 +1,33 @@
-import React, { useState } from "react";
-import data from "../../data";
-import "./inventry.css";
+// InventoryPage.js
+import React, { useState, useEffect } from "react";
+import "./Inventory.css";
 
 const InventoryPage = () => {
-  const { items } = data;
-  const [searchTerm, setSearchTerm] = useState("");
+  const [items, setItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value.toLowerCase());
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/items");
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
   };
 
   const filteredItems = items.filter(
     (item) =>
-      item.name.toLowerCase().includes(searchTerm) ||
-      item.code.toLowerCase().includes(searchTerm)
-  );
-
-  const totalStockValue = filteredItems.reduce(
-    (acc, item) => acc + item.quantity * item.purchasePrice,
-    0
+      item.name.toLowerCase().includes(searchQuery) ||
+      item.code.toLowerCase().includes(searchQuery)
   );
 
   return (
@@ -27,77 +36,38 @@ const InventoryPage = () => {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search by item name or code..."
-          value={searchTerm}
+          placeholder="Search by name or code"
+          value={searchQuery}
           onChange={handleSearch}
         />
       </div>
-
-      {/* Table View for Larger Screens */}
       <div className="inventory-table-container">
-        <table className="inventory-table">
-          <thead>
-            <tr>
-              <th>Item Code</th>
-              <th>Item Name</th>
-              <th>Quantity</th>
-              <th>Purchase Price (PKR)</th>
-              <th>Total Price (PKR)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredItems.length > 0 ? (
-              filteredItems.map((item) => (
-                <tr key={item.code}>
+        {filteredItems.length > 0 ? (
+          <table className="inventory-table">
+            <thead>
+              <tr>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Purchase Price</th>
+                <th>Sale Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredItems.map((item) => (
+                <tr key={item._id}>
                   <td>{item.code}</td>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
-                  <td>{item.purchasePrice.toLocaleString()}</td>
-                  <td>
-                    {(item.quantity * item.purchasePrice).toLocaleString()}
-                  </td>
+                  <td>{item.purchasePrice}</td>
+                  <td>{item.salePrice}</td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  No items found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Card View for Mobile Screens */}
-      <div className="inventory-cards">
-        {filteredItems.length > 0 ? (
-          filteredItems.map((item) => (
-            <div className="inventory-card" key={item.code}>
-              <h2>{item.name}</h2>
-              <p>
-                <span className="card-header">Item Code:</span> {item.code}
-              </p>
-              <p>
-                <span className="card-header">Quantity:</span> {item.quantity}
-              </p>
-              <p>
-                <span className="card-header">Purchase Price (PKR):</span>{" "}
-                {item.purchasePrice.toLocaleString()}
-              </p>
-              <p>
-                <span className="card-header">Total Price (PKR):</span>{" "}
-                {(item.quantity * item.purchasePrice).toLocaleString()}
-              </p>
-            </div>
-          ))
+              ))}
+            </tbody>
+          </table>
         ) : (
-          <p style={{ textAlign: "center" }}>No items found</p>
+          <p>No items found</p>
         )}
-      </div>
-
-      <div className="inventory-summary">
-        <h2>Total Stock Value (PKR): {totalStockValue.toLocaleString()}</h2>
       </div>
     </div>
   );

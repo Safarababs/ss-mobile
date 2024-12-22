@@ -1,138 +1,265 @@
-/* salesSummary.css */
-
+/* General styling for the component */
 .sales-summary {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px auto;
   padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 1200px;
 }
 
+/* Title styling */
 .sales-summary h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 28px;
   color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Styling for the controls (select, input, button) */
+.sales-summary > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .sales-summary label {
-  margin-right: 10px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
 }
 
 .sales-summary select,
-.sales-summary input,
-.sales-summary button {
-  padding: 8px;
-  margin-right: 10px;
+.sales-summary input[type="date"] {
+  padding: 12px;
+  border-radius: 6px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.sales-summary select:focus,
+.sales-summary input[type="date"]:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .sales-summary button {
-  background-color: #007bff;
-  color: white;
+  padding: 12px 24px;
   border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .sales-summary button:hover {
   background-color: #0056b3;
+  transform: scale(1.02);
 }
 
-/* Table Styles */
+.sales-summary button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Error message styling */
+.error-message {
+  color: #d9534f;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+}
+
 table {
-  width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-thead {
-  background-color: #007bff;
-  color: white;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem;
 }
 
 th,
 td {
-  padding: 10px;
   text-align: left;
-  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 th {
-  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
 }
 
-tbody tr:nth-child(even) {
+th,
+td {
+  padding: 8px;
+
+  text-align: center;
+  border: 1px solid #333;
+}
+
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-/* Enhanced Responsive Table Styles */
-@media (max-width: 768px) {
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+.search-bar input {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
 
-  thead {
-    display: none;
-  }
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-  tbody,
-  tr,
-  td {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-  }
+.search-bar input::placeholder {
+  color: #aaa; /* Placeholder color */
+  font-style: italic; /* Italic style for placeholder text */
+}
 
-  tr {
-    border-radius: 8px;
-    overflow: hidden;
-  }
+/* Total Sales Styling */
+.total-sales {
+  margin-top: 20px;
+  text-align: center;
+}
 
-  td {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-  }
+.total-sales h2 {
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+}
 
-  td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 50%;
-    white-space: nowrap;
-  }
+/* Style for the Actions Column */
+.actions-column {
+  text-align: center;
+}
 
-  td {
-    padding-left: 50%;
-    padding-right: 10px;
-  }
+/* Style for Delete Button */
+.delete-button {
+  background-color: #d9534f; /* Red color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 8px;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+
+/* Style for Update Button */
+.update-button {
+  background-color: #5bc0de; /* Blue color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.update-button:hover {
+  background-color: #31b0d5;
+}
+
+/* Update Form Styling */
+.update-form {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.update-form h2 {
+  margin-bottom: 15px;
+}
+
+.update-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-form label {
+  margin-bottom: 10px;
+}
+
+.update-form input {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.update-form button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.update-form button[type="submit"] {
+  background-color: #5bc0de; /* Blue color */
+  color: white;
+}
+
+.update-form button[type="submit"]:hover {
+  background-color: #31b0d5;
+}
+
+.update-form button[type="button"] {
+  background-color: #d9534f; /* Red color */
+  color: white;
+}
+
+.update-form button[type="button"]:hover {
+  background-color: #c9302c;
 }
 
 @media (max-width: 480px) {
-  .sales-summary h1 {
-    font-size: 1.5em;
+  .search-bar {
+    width: 90%;
+    margin: 0.7rem;
+  }
+
+  th {
+    font-size: 0.8rem;
+    font-weight: lighter;
   }
 
   th,
   td {
-    font-size: 10px;
-  }
+    text-align: left;
 
-  .sales-summary select,
-  .sales-summary input,
-  .sales-summary button {
-    padding: 6px;
-    margin-right: 5px;
+    font-size: 0.7rem;
   }
 }

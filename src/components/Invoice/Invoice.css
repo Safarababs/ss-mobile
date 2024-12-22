@@ -1,0 +1,144 @@
+/* Global Styles */
+.invoice-page {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.invoice-page h2 {
+  text-align: center;
+  color: #333;
+}
+
+/* Invoice Input Styles */
+.invoice-page .invoice-section {
+  margin-bottom: 15px;
+}
+
+.invoice-page .invoice-section label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.invoice-page .invoice-section .invoice-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.invoice-page .invoice-section .invoice-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Search Section Styles */
+.invoice-page .search-section {
+  margin-bottom: 20px;
+}
+
+.invoice-page .search-section input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.invoice-page .search-section .search-section input:focus {
+  border-color: #007bff;
+}
+
+.invoice-page .search-section .item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-page .search-section .item-list-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.invoice-page .search-section .item-list-item:hover {
+  background-color: #f1f1f1;
+}
+
+.invoice-page .search-section .out-of-stock {
+  color: red;
+}
+
+/* Selected Items Table Styles */
+.invoice-page .selected-items {
+  margin-top: 30px;
+}
+
+.invoice-page .selected-items .selected-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.invoice-page .selected-items .selected-items-table th,
+.invoice-page .selected-items .selected-items-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.invoice-page .selected-items .selected-items-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.invoice-page .selected-items .remove-btn {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.invoice-page .selected-items .remove-btn:hover {
+  background-color: #e04343;
+}
+
+.invoice-page .total-section {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 18px;
+}
+
+.invoice-page .total-section .total-price {
+  font-size: 22px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Submit Button */
+.invoice-page .submit-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.invoice-page .submit-section .submit-button {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.invoice-page .submit-section .submit-button:hover {
+  background-color: #218838;
+}
