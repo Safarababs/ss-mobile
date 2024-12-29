@@ -1,10 +1,9 @@
-// src/axios.js
-
 import axios from "axios";
 
-// Create an axios instance with the base URL of your backend
+// Use environment variable for baseURL
 const api = axios.create({
-  baseURL: "https://abdmobiles-backend.onrender.com/api", // This is the base URL of your server
+  baseURL: "https://abdmobiles-backend.onrender.com/api",
+  //baseURL: "http://localhost:5000/",
   headers: {
     "Content-Type": "application/json",
   },

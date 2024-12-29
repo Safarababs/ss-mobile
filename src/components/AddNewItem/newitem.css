@@ -1,0 +1,60 @@
+/* AddNewItem.css */
+.add-new-item {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-new-item h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-new-item form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-new-item form div {
+  margin-bottom: 15px;
+}
+
+.add-new-item form label {
+  font-weight: bold;
+}
+
+.add-new-item form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-new-item form button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-new-item form button:disabled {
+  background-color: #cccccc;
+}
+
+.add-new-item .error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.add-new-item .success-message {
+  color: green;
+  margin-top: 10px;
+}

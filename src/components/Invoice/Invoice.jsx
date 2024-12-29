@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import api from "../../axios"; // Replace with your axios configuration
 import "./Invoice.css";
 
 const Invoice = () => {
-  const [items, setItems] = useState([]); // All items from the database
+  const navigate = useNavigate(); // Hook to navigate to the home page
+  const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [items, setItems] = useState([]);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
-  const [selectedItems, setSelectedItems] = useState({}); // Store selected items
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
-  const [filteredItems, setFilteredItems] = useState([]); // Filtered items based on search term
+  const [selectedItems, setSelectedItems] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [loading, setLoading] = useState(false); // Loading state
 
+  // Fetch items from the backend
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await api.get("/items"); // Fetch items from your API
+        const response = await api.get("/items");
         const itemsWithQuantity = response.data.map((item) => ({
           ...item,
           quantity: item.quantity.$numberInt
             ? parseInt(item.quantity.$numberInt)
             : item.quantity,
-          stock: item.stock || 0, // Ensure stock is included in the item
         }));
         setItems(itemsWithQuantity);
       } catch (error) {
         console.error("Error fetching items:", error);
+        alert("Failed to fetch items from the server. Please try again later.");
       }
     };
 
     fetchItems();
   }, []);
 
+  // Filter items based on search term
   useEffect(() => {
-    // Filter items based on search term (code or name)
     if (searchTerm.trim() === "") {
       setFilteredItems([]);
     } else {
@@ -45,49 +50,43 @@ const Invoice = () => {
     }
   }, [searchTerm, items]);
 
-  // Handle adding item to selected items list
+  // Add item to selected items
   const handleAddItem = (item) => {
     setSelectedItems((prevItems) => {
       const updatedItems = { ...prevItems };
 
-      // Check if the item is already in the cart
       if (updatedItems[item._id]) {
-        // If the item is already in the cart, check if the quantity is less than the stock
-        if (updatedItems[item._id].quantity < item.stock) {
-          updatedItems[item._id].quantity += 1; // Increase the quantity by 1
+        if (updatedItems[item._id].quantity < item.quantity) {
+          updatedItems[item._id].quantity += 1;
         } else {
-          alert(
-            `Stock limit reached for ${item.name}. Only ${item.stock} items available.`
-          );
+          alert(`Only ${item.quantity} items available in stock.`);
         }
       } else {
-        // If the item is not in the cart, add it with quantity 1
         updatedItems[item._id] = { ...item, quantity: 1 };
       }
       return updatedItems;
     });
   };
 
-  // Handle price change for an item
+  // Update sale price for an item
   const handlePriceChange = (id, newPrice) => {
     setSelectedItems((prevItems) => {
       const updatedItems = { ...prevItems };
-      const item = updatedItems[id];
-      item.salePrice = newPrice; // Update the sale price
+      updatedItems[id].salePrice = newPrice;
       return updatedItems;
     });
   };
 
-  // Handle removing an item from the selected items list
+  // Remove item from selected items
   const handleRemoveItem = (id) => {
     setSelectedItems((prevItems) => {
       const updatedItems = { ...prevItems };
-      delete updatedItems[id]; // Remove the item by its id
+      delete updatedItems[id];
       return updatedItems;
     });
   };
 
-  // Calculate total amount based on updated prices
+  // Calculate total price of selected items
   const calculateTotal = () => {
     return Object.values(selectedItems).reduce(
       (total, item) => total + item.salePrice * item.quantity,
@@ -95,37 +94,79 @@ const Invoice = () => {
     );
   };
 
-  // Handle submitting the sale
+  // Calculate total profit from selected items
+  const calculateProfit = () => {
+    return Object.values(selectedItems).reduce(
+      (profit, item) =>
+        profit + (item.salePrice - item.purchasePrice) * item.quantity,
+      0
+    );
+  };
+
+  // Handle submission of sale
   const handleSubmit = async () => {
+    if (Object.keys(selectedItems).length === 0) {
+      alert("Please select at least one item before submitting the sale.");
+      return; // Prevent submission if no items are selected
+    }
+
+    setLoading(true); // Set loading to true when submitting
+
     const saleData = {
       customerName,
       customerPhone,
-      itemsSold: Object.values(selectedItems).map((item) => ({
-        _id: item._id,
-        name: item.name,
-        salePrice: item.salePrice,
-        quantity: item.quantity,
-        code: item.code,
-      })),
-      total: calculateTotal(), // Send the total after price changes
+      itemsSold: Object.values(selectedItems).map((item) => {
+        const profitOrLoss =
+          (item.salePrice - item.purchasePrice) * item.quantity;
+        return {
+          _id: item._id,
+          name: item.name,
+          code: item.code,
+          salePrice: item.salePrice,
+          purchasePrice: item.purchasePrice,
+          quantity: item.quantity,
+          profit: profitOrLoss > 0 ? profitOrLoss : undefined,
+          loss: profitOrLoss < 0 ? Math.abs(profitOrLoss) : undefined,
+        };
+      }),
+      total: calculateTotal(),
     };
 
     try {
-      await api.post("/sales", saleData); // Submit sale
-      alert("Sale submitted successfully!");
+      const response = await api.post("/sales", saleData);
+      setInvoiceNumber(response.data.invoiceNumber); // Update invoice number
+      console.log(invoiceNumber);
+
+      alert(
+        `Sale submitted successfully! Invoice Number: ${response.data.invoiceNumber}`
+      );
+
+      // Clear the form after successful submission
+      setCustomerName("");
+      setCustomerPhone("");
+      setSelectedItems({});
+      setSearchTerm("");
+      setFilteredItems([]);
+
+      // Redirect to home page
+      navigate("/"); // Redirects to the home page (change this if you have a different route)
     } catch (error) {
       console.error("Error submitting sale:", error);
+      alert("Failed to submit sale. Please try again later.");
+    } finally {
+      setLoading(false); // Set loading to false after the request finishes
     }
   };
 
   return (
     <div className="invoice-page">
       <h2>ABD Mobiles & Accessories</h2>
+
+      {/* Customer Name and Phone input fields */}
       <div className="invoice-section">
         <label>Customer Name: </label>
         <input
           type="text"
-          className="invoice-input"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
         />
@@ -134,17 +175,16 @@ const Invoice = () => {
         <label>Customer Phone: </label>
         <input
           type="text"
-          className="invoice-input"
           value={customerPhone}
           onChange={(e) => setCustomerPhone(e.target.value)}
         />
       </div>
 
+      {/* Item Search Section */}
       <div className="search-section">
         <label>Select Items: </label>
         <input
           type="text"
-          className="invoice-input"
           placeholder="Search items by code or name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -152,72 +192,89 @@ const Invoice = () => {
         {filteredItems.length > 0 && (
           <ul className="item-list">
             {filteredItems.map((item) => (
-              <li
-                key={item._id}
-                onClick={() => handleAddItem(item)}
-                className={`item-list-item ${
-                  item.quantity === 0 ? "out-of-stock" : ""
-                }`}
-              >
-                {item.name} (Code: {item.code}) - (PKR {item.salePrice}) |
-                Stock: {item.quantity}
+              <li key={item._id} onClick={() => handleAddItem(item)}>
+                {item.name} (Code: {item.code}) - PKR {item.salePrice} | Stock:{" "}
+                {item.quantity}
               </li>
             ))}
           </ul>
         )}
       </div>
 
+      {/* Selected Items Table */}
       <div className="selected-items">
         <h3>Selected Items</h3>
-        <table className="selected-items-table">
+        <table>
           <thead>
             <tr>
-              <th>Item Name</th>
+              <th>Name</th>
               <th>Price</th>
               <th>Quantity</th>
-              <th>Total</th>
-              <th>Action</th>
+              <th>Profit</th>
+              <th>Loss</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {Object.values(selectedItems).map((item) => (
-              <tr key={item._id}>
-                <td>{item.name}</td>
-                <td>
-                  <input
-                    type="number"
-                    value={item.salePrice}
-                    onChange={(e) =>
-                      handlePriceChange(item._id, e.target.value)
-                    }
-                    min="0"
-                  />
-                </td>
-                <td>{item.quantity}</td> {/* Display quantity */}
-                <td>{item.salePrice * item.quantity}</td> {/* Total price */}
-                <td>
-                  <button
-                    className="remove-btn"
-                    onClick={() => handleRemoveItem(item._id)}
-                  >
-                    Remove
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {Object.values(selectedItems).map((item) => {
+              const profitOrLoss =
+                (item.salePrice - item.purchasePrice) * item.quantity;
+              return (
+                <tr key={item._id}>
+                  <td>{item.name}</td>
+                  <td>
+                    <input
+                      type="number"
+                      value={item.salePrice}
+                      onChange={(e) =>
+                        handlePriceChange(item._id, e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>{item.quantity}</td>
+                  <td>{profitOrLoss > 0 ? profitOrLoss : "-"}</td>
+                  <td>{profitOrLoss < 0 ? Math.abs(profitOrLoss) : "-"}</td>
+                  <td>
+                    <button onClick={() => handleRemoveItem(item._id)}>
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-        <div className="total-section">
-          <h3>Total:</h3>
-          <p className="total-price">PKR {calculateTotal()}/-</p>
+
+        {/* Total and Profit */}
+        <div>
+          <h3>Total: PKR {calculateTotal()}</h3>
+          <h3>Total Profit: PKR {calculateProfit()}</h3>
         </div>
       </div>
 
-      <div className="submit-section">
-        <button className="submit-button" onClick={handleSubmit}>
-          Submit Sale
-        </button>
+      {/* Show spinner when loading */}
+      {loading && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
+
+      {/* Warning message if no items are selected */}
+      <div
+        className="warning-message"
+        style={{
+          display: Object.keys(selectedItems).length === 0 ? "block" : "none",
+        }}
+      >
+        <p>Please select at least one item before submitting the sale.</p>
       </div>
+
+      <button
+        onClick={handleSubmit}
+        disabled={loading || Object.keys(selectedItems).length === 0}
+      >
+        {loading ? "Submitting..." : "Submit Sale"}
+      </button>
     </div>
   );
 };

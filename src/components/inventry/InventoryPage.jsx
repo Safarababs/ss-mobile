@@ -1,4 +1,3 @@
-// InventoryPage.js
 import React, { useState, useEffect } from "react";
 import "./Inventory.css";
 
@@ -8,10 +7,10 @@ const InventoryPage = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
+      const url = "https://abdmobiles-backend.onrender.com/api/items";
+
       try {
-        const response = await fetch(
-          "https://abdmobiles-backend.onrender.com/api/items"
-        );
+        const response = await fetch(url);
         const data = await response.json();
         setItems(data);
       } catch (error) {
@@ -51,7 +50,6 @@ const InventoryPage = () => {
                 <th>Item Code</th>
                 <th>Item Name</th>
                 <th>Quantity</th>
-                <th>Purchase Price</th>
                 <th>Sale Price</th>
               </tr>
             </thead>
@@ -61,7 +59,6 @@ const InventoryPage = () => {
                   <td>{item.code}</td>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
-                  <td>{item.purchasePrice}</td>
                   <td>{item.salePrice}</td>
                 </tr>
               ))}

@@ -31,8 +31,8 @@ function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/glass">
-                Glass
+              <a className="nav-link" href="/invoice">
+                Invoice
               </a>
             </li>
             <li className="nav-item dropdown">
@@ -47,13 +47,18 @@ function Header() {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="/">
-                    {" "}
+                  <a className="dropdown-item" href="/updatestock">
+                    update item
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/">
-                    Another action
+                  <a className="dropdown-item" href="/addnewitem">
+                    add new item
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="/deleteitem">
+                    delete item
                   </a>
                 </li>
                 <li>

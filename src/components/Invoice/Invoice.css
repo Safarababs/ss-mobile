@@ -1,144 +1,329 @@
-/* Global Styles */
-.invoice-page {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.invoice-page h2 {
-  text-align: center;
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f9fc;
   color: #333;
+  line-height: 1.5;
 }
 
-/* Invoice Input Styles */
-.invoice-page .invoice-section {
-  margin-bottom: 15px;
+.invoice-page {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.invoice-page .invoice-section label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.invoice-page .invoice-section .invoice-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.invoice-page .invoice-section .invoice-input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Search Section Styles */
-.invoice-page .search-section {
+h2 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: #4a90e2;
   margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
-.invoice-page .search-section input {
-  width: 100%;
-  padding: 10px;
+/* Sections Layout */
+.invoice-section,
+.search-section {
+  margin-bottom: 30px;
+}
+
+.invoice-section label,
+.search-section label {
   font-size: 16px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
 }
 
-.invoice-page .search-section .search-section input:focus {
-  border-color: #007bff;
+.invoice-section input,
+.search-section input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.invoice-page .search-section .item-list {
+.invoice-section input:focus,
+.search-section input:focus {
+  border-color: #4caf50;
+}
+
+.search-section input {
+  max-width: 500px;
+  margin: 10px 0;
+}
+
+/* Item List */
+.item-list {
   list-style: none;
   padding: 0;
-  margin: 0;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.invoice-page .search-section .item-list-item {
-  padding: 10px;
+.item-list li {
+  padding: 15px;
+  font-size: 16px;
   cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s ease;
 }
 
-.invoice-page .search-section .item-list-item:hover {
-  background-color: #f1f1f1;
+.item-list li:hover {
+  background-color: #f7f7f7;
 }
 
-.invoice-page .search-section .out-of-stock {
-  color: red;
+.item-list li:last-child {
+  border-bottom: none;
 }
 
-/* Selected Items Table Styles */
-.invoice-page .selected-items {
-  margin-top: 30px;
+/* Selected Items Table */
+.selected-items {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.invoice-page .selected-items .selected-items-table {
+.selected-items h3 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.selected-items table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  overflow-x: auto;
+  display: block;
 }
 
-.invoice-page .selected-items .selected-items-table th,
-.invoice-page .selected-items .selected-items-table td {
-  padding: 12px;
+.selected-items th,
+.selected-items td {
+  padding: 15px;
   text-align: left;
   border: 1px solid #ddd;
+  vertical-align: middle;
 }
 
-.invoice-page .selected-items .selected-items-table th {
-  background-color: #007bff;
-  color: white;
+.selected-items th {
+  background-color: #4a90e2;
+  color: #fff;
+  font-weight: 600;
 }
 
-.invoice-page .selected-items .remove-btn {
-  background-color: #ff4c4c;
+.selected-items td {
+  background-color: #fafafa;
+}
+
+.selected-items td input[type="number"] {
+  width: 80px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.selected-items td input[type="number"]:focus {
+  border-color: #4caf50;
+}
+
+.selected-items button {
+  padding: 12px 24px;
+  background-color: #e74c3c;
   color: white;
   border: none;
-  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
-.invoice-page .selected-items .remove-btn:hover {
-  background-color: #e04343;
-}
-
-.invoice-page .total-section {
-  margin-top: 20px;
-  text-align: right;
-  font-size: 18px;
-}
-
-.invoice-page .total-section .total-price {
-  font-size: 22px;
-  color: #28a745;
-  font-weight: bold;
+.selected-items button:hover {
+  background-color: #c0392b;
 }
 
 /* Submit Button */
-.invoice-page .submit-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.invoice-page .submit-section .submit-button {
-  background-color: #28a745;
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: #4a90e2;
   color: white;
-  padding: 12px 20px;
-  font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 18px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.invoice-page .submit-section .submit-button:hover {
-  background-color: #218838;
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Card Hover Effects */
+.invoice-section,
+.search-section,
+.selected-items {
+  transition: all 0.3s ease;
+}
+
+.invoice-section:hover,
+.search-section:hover,
+.selected-items:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .invoice-page {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .invoice-section input,
+  .search-section input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .item-list li {
+    padding: 12px;
+  }
+
+  .selected-items table {
+    font-size: 14px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .selected-items th,
+  .selected-items td {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-page {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .invoice-section input,
+  .search-section input {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .item-list li {
+    padding: 10px;
+  }
+
+  .selected-items table {
+    font-size: 12px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .selected-items th,
+  .selected-items td {
+    padding: 8px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+/* Spinner style */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button disabled state */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
