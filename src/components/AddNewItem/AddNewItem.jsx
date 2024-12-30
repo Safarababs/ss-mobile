@@ -25,7 +25,7 @@ const AddNewItem = () => {
 
     try {
       // Perform the POST request to add the new item
-      await api.post("/api/items", {
+      await api.post("/items", {
         code: itemCode,
         name: itemName,
         purchasePrice: parseFloat(purchasePrice),

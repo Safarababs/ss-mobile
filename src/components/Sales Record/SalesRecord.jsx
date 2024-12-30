@@ -180,8 +180,10 @@ const SalesRecord = () => {
                 <tr>
                   <th>Invoice Number</th>
                   <th>Customer Name</th>
+                  <th>Item Name</th>
                   <th>Total</th>
                   <th>Total Profit</th>
+                  <th>Total Loss</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
@@ -191,8 +193,22 @@ const SalesRecord = () => {
                   <tr key={sale._id}>
                     <td>{sale.invoiceNumber}</td>
                     <td>{sale.customerName}</td>
+                    <td>
+                      {sale.itemsSold && sale.itemsSold.length > 0 ? (
+                        <ul>
+                          {sale.itemsSold.map((item, index) => (
+                            <li key={index} style={{ listStyle: "none" }}>
+                              {item.name}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        "No items sold"
+                      )}
+                    </td>
                     <td>{sale.total}</td>
-                    <td>{sale.totalProfit}</td>
+                    <td>{sale.profit}</td>
+                    <td>{sale.loss}</td>
                     <td>{new Date(sale.date).toLocaleString()}</td>
                     <td>
                       <button onClick={() => printInvoice(sale)}>

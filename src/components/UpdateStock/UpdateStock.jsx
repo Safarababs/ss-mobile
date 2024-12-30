@@ -23,7 +23,7 @@ const UpdateStock = () => {
 
     try {
       // Perform the PUT request without storing the response
-      await api.put("api/items/updateQuantity", {
+      await api.put("/items/updateQuantity", {
         itemCode,
         quantityPurchased,
       });

@@ -21,7 +21,7 @@ const DeleteItem = () => {
 
     try {
       // Perform the DELETE request to remove the item
-      await api.delete(`/api/items/${itemCode}`); // No need to store the response
+      await api.delete(`/items/${itemCode}`); // No need to store the response
 
       setLoading(false);
       setSuccess("Item deleted successfully!");
