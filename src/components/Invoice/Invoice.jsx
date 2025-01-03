@@ -52,6 +52,12 @@ const Invoice = () => {
 
   // Add item to selected items
   const handleAddItem = (item) => {
+    // Check if the item has stock available
+    if (item.quantity === 0) {
+      alert(`The item "${item.name}" is out of stock.`);
+      return; // Prevent adding the item if no stock is available
+    }
+
     setSelectedItems((prevItems) => {
       const updatedItems = { ...prevItems };
 
@@ -210,6 +216,7 @@ const Invoice = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Quantity</th>
+              <th>Total</th>
               <th>Profit</th>
               <th>Loss</th>
               <th>Actions</th>
@@ -232,6 +239,7 @@ const Invoice = () => {
                     />
                   </td>
                   <td>{item.quantity}</td>
+                  <td>{item.salePrice * item.quantity}</td>
                   <td>{profitOrLoss > 0 ? profitOrLoss : "-"}</td>
                   <td>{profitOrLoss < 0 ? Math.abs(profitOrLoss) : "-"}</td>
                   <td>
@@ -247,8 +255,10 @@ const Invoice = () => {
 
         {/* Total and Profit */}
         <div>
-          <h3>Total: PKR {calculateTotal()}</h3>
-          <h3>Total Profit: PKR {calculateProfit()}</h3>
+          <p>
+            Total: PKR {calculateTotal()} & Total Profit: PKR{" "}
+            {calculateProfit()}
+          </p>
         </div>
       </div>
 
@@ -272,6 +282,7 @@ const Invoice = () => {
       <button
         onClick={handleSubmit}
         disabled={loading || Object.keys(selectedItems).length === 0}
+        className="submit-button"
       >
         {loading ? "Submitting..." : "Submit Sale"}
       </button>

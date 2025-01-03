@@ -136,6 +136,19 @@ const SalesRecord = () => {
     };
   };
 
+  // Calculate total sum of sales, total profit, and total loss
+  const calculateTotalSales = () => {
+    return sales.reduce((total, sale) => total + sale.total, 0);
+  };
+
+  const calculateTotalProfit = () => {
+    return sales.reduce((total, sale) => total + sale.profit, 0);
+  };
+
+  const calculateTotalLoss = () => {
+    return sales.reduce((total, sale) => total + sale.loss, 0);
+  };
+
   return (
     <div className="sales-record-container">
       <h2>Sales Record</h2>
@@ -219,6 +232,11 @@ const SalesRecord = () => {
                 ))}
               </tbody>
             </table>
+            <div className="total-sales">
+              <h3>Total Sales: PKR {calculateTotalSales()}</h3>
+              <h3>Total Profit: PKR {calculateTotalProfit()}</h3>
+              <h3>Total Loss: PKR {calculateTotalLoss()}</h3>
+            </div>
           </>
         )}
       </div>
