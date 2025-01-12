@@ -36,6 +36,7 @@ const SalesRecord = () => {
     labels: [],
     datasets: [],
   });
+  const [loading, setLoading] = useState(false); // New loading state
 
   // Wrap generateChartData in useCallback to ensure it doesn't change on each render
   const generateChartData = useCallback(
@@ -68,17 +69,19 @@ const SalesRecord = () => {
   ); // Depend on chartType
 
   const fetchSales = useCallback(async () => {
+    setLoading(true); // Set loading to true before fetching data
     try {
       const response = await axios.get(
         `https://abdmobiles-backend.onrender.com/api/sales?period=${period}`
       );
-      console.log(response.data); // Check if data is being fetched
       setSales(response.data);
       setChartData(generateChartData(response.data)); // Make sure it's included
     } catch (error) {
       console.error("Error fetching sales:", error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching
     }
-  }, [period, generateChartData]); // Include generateChartData here
+  }, [period, generateChartData]);
 
   useEffect(() => {
     fetchSales();
@@ -106,11 +109,18 @@ const SalesRecord = () => {
     <div className="sales-record-container">
       <h2>Sales Record</h2>
 
-      <div className="period-buttons">
-        <button onClick={() => setPeriod("daily")}>Daily</button>
-        <button onClick={() => setPeriod("weekly")}>Weekly</button>
-        <button onClick={() => setPeriod("monthly")}>Monthly</button>
-        <button onClick={() => setPeriod("yearly")}>Yearly</button>
+      <div className="period-select">
+        <label htmlFor="period">Select Period:</label>
+        <select
+          id="period"
+          value={period}
+          onChange={(e) => setPeriod(e.target.value)}
+        >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
       </div>
 
       <div className="chart-controls">
@@ -120,18 +130,23 @@ const SalesRecord = () => {
         <button onClick={() => handleChartTypeChange("bar")}>Bar Chart</button>
       </div>
 
-      <div className="chart-container">
-        <h3>Sales for {period}</h3>
-        {chartData.labels && chartData.labels.length > 0 ? (
-          chartType === "line" ? (
-            <Line data={chartData} />
+      {/* Spinner while loading */}
+      {loading ? (
+        <div className="spinner">Loading...</div>
+      ) : (
+        <div className="chart-container">
+          <h3>Sales for {period}</h3>
+          {chartData.labels && chartData.labels.length > 0 ? (
+            chartType === "line" ? (
+              <Line data={chartData} />
+            ) : (
+              <Bar data={chartData} />
+            )
           ) : (
-            <Bar data={chartData} />
-          )
-        ) : (
-          <p>No sales data available for the selected period.</p>
-        )}
-      </div>
+            <p>No sales data available for the selected period.</p>
+          )}
+        </div>
+      )}
 
       {/* Display Sales in Table Format */}
       <div className="sales-table-container">
@@ -170,7 +185,7 @@ const SalesRecord = () => {
       </div>
 
       <div className="total-sales">
-        <p>Total Sales: PKR {calculateTotalSales()} </p>
+        <p>Total Sales: PKR {calculateTotalSales()}</p>
         <p>Total Profit: PKR {calculateTotalProfit()}</p>
         <p>Total Loss: PKR {calculateTotalLoss()}</p>
       </div>
