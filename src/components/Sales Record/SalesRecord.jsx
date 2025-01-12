@@ -89,53 +89,6 @@ const SalesRecord = () => {
     setChartData(generateChartData(sales));
   };
 
-  const exportToCSV = () => {
-    const headers = [
-      "Invoice Number",
-      "Customer Name",
-      "Total",
-      "Profit",
-      "Date",
-    ];
-    const rows = sales.map((sale) => [
-      sale.invoiceNumber,
-      sale.customerName,
-      sale.total,
-      sale.totalProfit,
-      new Date(sale.date).toLocaleString(),
-    ]);
-
-    const csvContent = [
-      headers.join(","),
-      ...rows.map((row) => row.join(",")),
-    ].join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "sales_data.csv";
-    link.click();
-  };
-
-  const printInvoice = (sale) => {
-    const printContent = `...`; // Same as your print logic
-
-    const iframe = document.createElement("iframe");
-    iframe.style.position = "absolute";
-    iframe.style.top = "-10000px";
-    document.body.appendChild(iframe);
-
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.open();
-    doc.write(printContent);
-    doc.close();
-
-    iframe.onload = () => {
-      iframe.contentWindow.print();
-      document.body.removeChild(iframe);
-    };
-  };
-
   // Calculate total sum of sales, total profit, and total loss
   const calculateTotalSales = () => {
     return sales.reduce((total, sale) => total + sale.total, 0);
@@ -180,65 +133,46 @@ const SalesRecord = () => {
         )}
       </div>
 
-      <div className="sales-table">
-        {sales.length === 0 ? (
-          <p>No sales found for the selected period.</p>
-        ) : (
-          <>
-            <button className="export-btn" onClick={exportToCSV}>
-              Export Data
-            </button>
-            <table>
-              <thead>
-                <tr>
-                  <th>Invoice Number</th>
-                  <th>Customer Name</th>
-                  <th>Item Name</th>
-                  <th>Total</th>
-                  <th>Total Profit</th>
-                  <th>Total Loss</th>
-                  <th>Date</th>
-                  <th>Action</th>
+      {/* Display Sales in Table Format */}
+      <div className="sales-table-container">
+        <h3>Sales Data for {period}</h3>
+        {sales.length > 0 ? (
+          <table className="sales-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Item Name</th>
+                <th>Total Sales</th>
+                <th>Profit</th>
+                <th>Loss</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sales.map((sale) => (
+                <tr key={sale._id}>
+                  <td>{new Date(sale.date).toLocaleDateString()}</td>
+                  {/* Render itemsSold array */}
+                  {sale.itemsSold.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.salePrice}</td>
+                      <td>{item.profit}</td>
+                      <td>{item.loss}</td>
+                    </React.Fragment>
+                  ))}
                 </tr>
-              </thead>
-              <tbody>
-                {sales.map((sale) => (
-                  <tr key={sale._id}>
-                    <td>{sale.invoiceNumber}</td>
-                    <td>{sale.customerName}</td>
-                    <td>
-                      {sale.itemsSold && sale.itemsSold.length > 0 ? (
-                        <ul>
-                          {sale.itemsSold.map((item, index) => (
-                            <li key={index} style={{ listStyle: "none" }}>
-                              {item.name}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        "No items sold"
-                      )}
-                    </td>
-                    <td>{sale.total}</td>
-                    <td>{sale.profit}</td>
-                    <td>{sale.loss}</td>
-                    <td>{new Date(sale.date).toLocaleString()}</td>
-                    <td>
-                      <button onClick={() => printInvoice(sale)}>
-                        Print Invoice
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="total-sales">
-              <h3>Total Sales: PKR {calculateTotalSales()}</h3>
-              <h3>Total Profit: PKR {calculateTotalProfit()}</h3>
-              <h3>Total Loss: PKR {calculateTotalLoss()}</h3>
-            </div>
-          </>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No sales data available for the selected period.</p>
         )}
+      </div>
+
+      <div className="total-sales">
+        <p>Total Sales: PKR {calculateTotalSales()} </p>
+        <p>Total Profit: PKR {calculateTotalProfit()}</p>
+        <p>Total Loss: PKR {calculateTotalLoss()}</p>
       </div>
     </div>
   );

@@ -1,118 +1,165 @@
 /* SalesRecord.css */
+
+/* General Styling */
 .sales-record-container {
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7fa;
   padding: 20px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 h2 {
   text-align: center;
+  font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
 }
 
+/* Period Buttons Styling */
 .period-buttons {
   display: flex;
   justify-content: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-.period-buttons button {
-  background-color: #4caf50;
-  color: white;
+button {
   padding: 10px 20px;
-  margin: 0 10px;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
+  background-color: #36a2eb;
+  color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.period-buttons button:hover {
-  background-color: #45a049;
+button:hover {
+  background-color: #2482c3;
 }
 
+/* Chart Controls Styling */
 .chart-controls {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .chart-controls button {
-  background-color: #007bff;
-  color: white;
   padding: 10px 20px;
-  margin: 0 10px;
-  border: none;
+  background-color: #4caf50;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 1rem;
 }
 
 .chart-controls button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
+/* Chart Container Styling */
 .chart-container {
-  margin: 20px 0;
   text-align: center;
+  margin-bottom: 40px;
+}
+
+.chart-container h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.chart-container p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Table Styling */
+.sales-table-container {
+  margin-top: 40px;
+}
+
+.sales-table-container h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .sales-table {
-  margin-top: 30px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.sales-table table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 .sales-table th,
 .sales-table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 1rem;
 }
 
 .sales-table th {
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #36a2eb;
+  color: #fff;
 }
 
-.sales-table tr:nth-child(even) {
+.sales-table td {
   background-color: #f9f9f9;
+  color: #333;
 }
 
 .sales-table tr:hover {
   background-color: #f1f1f1;
 }
 
-.export-btn {
-  background-color: #ff9800;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+/* Total Sales Section */
+.total-sales {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
 }
 
-.export-btn:hover {
-  background-color: #e68900;
+.total-sales p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
 }
 
+/* Responsive Styling */
 @media (max-width: 768px) {
-  .period-buttons button {
-    font-size: 14px;
+  .period-buttons,
+  .chart-controls {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .chart-controls button {
-    font-size: 14px;
+  .sales-table-container {
+    margin-top: 30px;
+  }
+
+  .sales-table th,
+  .sales-table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .sales-table-container h3,
+  .chart-container h3 {
+    font-size: 1.2rem;
+  }
+
+  .total-sales {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sales-record-container {
+    padding: 15px;
   }
 }
