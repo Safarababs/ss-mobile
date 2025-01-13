@@ -14,7 +14,17 @@ html {
   margin: 0;
   padding: 0;
 }
+.total-investment {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: green; /* You can adjust the color as you like */
+}
 
+.sort {
+  background: #007bff;
+  color: wheat;
+}
 .inventory-page h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -158,4 +168,14 @@ html {
     font-size: 12px;
     padding: 8px;
   }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 18px;
+  color: #007bff;
+  font-weight: bold;
 }

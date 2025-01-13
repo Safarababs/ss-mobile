@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js"; // Import Filler
+} from "chart.js";
 import "./SalesRecord.css";
 
 // Register required components
@@ -25,7 +25,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler // Register Filler plugin
+  Filler
 );
 
 const SalesRecord = () => {
@@ -36,7 +36,32 @@ const SalesRecord = () => {
     labels: [],
     datasets: [],
   });
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
+  const [sortOption, setSortOption] = useState("date-newest");
+
+  // Sort sales data based on the selected option
+  const sortSales = (salesData, option) => {
+    switch (option) {
+      case "date-newest":
+        return salesData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA;
+        });
+      case "date-oldest":
+        return salesData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA - dateB;
+        });
+      case "profit-highest":
+        return salesData.sort((a, b) => b.profit - a.profit);
+      case "profit-lowest":
+        return salesData.sort((a, b) => a.profit - b.profit);
+      default:
+        return salesData;
+    }
+  };
 
   // Wrap generateChartData in useCallback to ensure it doesn't change on each render
   const generateChartData = useCallback(
@@ -58,7 +83,7 @@ const SalesRecord = () => {
               chartType === "line"
                 ? "rgba(54, 162, 235, 0.2)"
                 : "rgba(255, 99, 132, 0.2)",
-            fill: true, // The 'fill' option requires the Filler plugin
+            fill: true,
             pointHoverRadius: 10,
             pointHoverBackgroundColor: "#FF6384",
           },
@@ -66,43 +91,43 @@ const SalesRecord = () => {
       };
     },
     [chartType]
-  ); // Depend on chartType
+  );
 
   const fetchSales = useCallback(async () => {
-    setLoading(true); // Set loading to true before fetching data
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://abdmobiles-backend.onrender.com/api/sales?period=${period}`
       );
-      setSales(response.data);
-      setChartData(generateChartData(response.data)); // Make sure it's included
+      const sortedSales = sortSales(response.data, sortOption);
+      setSales(sortedSales);
+      setChartData(generateChartData(sortedSales));
     } catch (error) {
       console.error("Error fetching sales:", error);
     } finally {
-      setLoading(false); // Set loading to false after fetching
+      setLoading(false);
     }
-  }, [period, generateChartData]);
+  }, [period, sortOption, generateChartData]);
 
   useEffect(() => {
     fetchSales();
-  }, [period, fetchSales]);
+  }, [period, sortOption, fetchSales]);
 
   const handleChartTypeChange = (type) => {
     setChartType(type);
     setChartData(generateChartData(sales));
   };
 
-  // Calculate total sum of sales, total profit, and total loss
   const calculateTotalSales = () => {
-    return sales.reduce((total, sale) => total + sale.total, 0);
+    return sales.reduce((total, sale) => total + (sale.total || 0), 0);
   };
 
   const calculateTotalProfit = () => {
-    return sales.reduce((total, sale) => total + sale.profit, 0);
+    return sales.reduce((total, sale) => total + (sale.profit || 0), 0);
   };
 
   const calculateTotalLoss = () => {
-    return sales.reduce((total, sale) => total + sale.loss, 0);
+    return sales.reduce((total, sale) => total + (sale.loss || 0), 0);
   };
 
   return (
@@ -123,6 +148,20 @@ const SalesRecord = () => {
         </select>
       </div>
 
+      <div className="sort-select">
+        <label htmlFor="sortOption">Sort By:</label>
+        <select
+          id="sortOption"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="date-newest">Date (Newest)</option>
+          <option value="date-oldest">Date (Oldest)</option>
+          <option value="profit-highest">Profit (Highest)</option>
+          <option value="profit-lowest">Profit (Lowest)</option>
+        </select>
+      </div>
+
       <div className="chart-controls">
         <button onClick={() => handleChartTypeChange("line")}>
           Line Chart
@@ -130,7 +169,6 @@ const SalesRecord = () => {
         <button onClick={() => handleChartTypeChange("bar")}>Bar Chart</button>
       </div>
 
-      {/* Spinner while loading */}
       {loading ? (
         <div className="spinner">Loading...</div>
       ) : (
@@ -148,7 +186,6 @@ const SalesRecord = () => {
         </div>
       )}
 
-      {/* Display Sales in Table Format */}
       <div className="sales-table-container">
         <h3>Sales Data for {period}</h3>
         {sales.length > 0 ? (
@@ -166,7 +203,6 @@ const SalesRecord = () => {
               {sales.map((sale) => (
                 <tr key={sale._id}>
                   <td>{new Date(sale.date).toLocaleDateString()}</td>
-                  {/* Render itemsSold array */}
                   {sale.itemsSold.map((item, index) => (
                     <React.Fragment key={index}>
                       <td>{item.name}</td>
